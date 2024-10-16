@@ -1,0 +1,73 @@
+# Fichier: E:\Projets\KafkaConnect_IOT\helm\kafka\values.yaml
+
+# Nom complet pour remplacer les noms générés automatiquement
+fullnameOverride: "kafka"
+
+# Configuration du mode Zookeeper (désactive KRaft)
+kraft:
+  enabled: false
+
+# Configuration des brokers Kafka
+broker:
+  replicaCount: 1
+
+# Désactiver les contrôleurs (non nécessaires en mode Zookeeper)
+controller:
+  replicaCount: 0
+
+# Configuration de la persistance
+persistence:
+  enabled: true
+  size: 1Gi
+
+# Configuration des ressources
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 200m
+    memory: 512Mi
+
+# Configuration des listeners
+listeners:
+  client:
+    protocol: PLAINTEXT
+
+# Configuration de Zookeeper externe
+externalZookeeper:
+  enabled: true
+  servers: 
+    - "zookeeper.develop.svc.cluster.local:2181"
+
+# Configurations de base pour Kafka
+autoCreateTopicsEnable: true
+deleteTopicEnable: true
+numPartitions: 1
+defaultReplicationFactor: 1
+
+# Configuration de l'authentification
+auth:
+  clientProtocol: plaintext
+  interBrokerProtocol: plaintext
+
+# Configuration supplémentaire pour un environnement à broker unique
+extraConfig: |
+  offsets.topic.replication.factor=1
+  transaction.state.log.replication.factor=1
+  transaction.state.log.min.isr=1
+
+# Désactiver les métriques pour simplifier la configuration
+metrics:
+  kafka:
+    enabled: false
+  jmx:
+    enabled: false
+
+# Désactiver la sécurité TLS pour simplifier la configuration
+tls:
+  enabled: false
+
+# Désactiver SASL pour simplifier la configuration
+sasl:
+  enabled: false

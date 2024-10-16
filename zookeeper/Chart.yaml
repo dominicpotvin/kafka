@@ -1,0 +1,5 @@
+apiVersion: v2
+name: zookeeper
+description: Configuration Zookeeper pour KafkaConnect_IOT
+version: 0.1.0
+type: application
